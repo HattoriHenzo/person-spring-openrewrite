@@ -23,11 +23,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class PersonControllerTest implements WithAssertions {
 
     @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
     protected ObjectMapper objectMapper;
-
+    @Autowired
+    private MockMvc mockMvc;
     @MockBean
     private GenericService<Person> service;
 
@@ -35,7 +33,7 @@ class PersonControllerTest implements WithAssertions {
     void givenController_whenFindingPersonById_thenReturns_200_OK() throws Exception {
         when(service.findById(anyLong())).thenReturn(TestData.createPerson());
         mockMvc.perform(MockMvcRequestBuilders.get("/persons/{id}", TestData.ID)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 

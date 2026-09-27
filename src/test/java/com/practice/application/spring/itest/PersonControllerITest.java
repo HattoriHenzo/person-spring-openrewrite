@@ -21,15 +21,12 @@ import static org.junit.jupiter.api.Assumptions.assumingThat;
 @ActiveProfiles("test")
 class PersonControllerITest {
 
+    private static final int PERSON_ID = 1;
     private static String URI = "http://localhost:%s";
-
     @LocalServerPort
     private String localServerPort;
-
     @Autowired
     private WebTestClient webTestClient;
-
-    private static final int PERSON_ID = 1;
 
     @BeforeEach
     void setUp() {

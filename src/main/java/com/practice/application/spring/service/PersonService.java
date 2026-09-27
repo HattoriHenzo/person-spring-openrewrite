@@ -1,9 +1,9 @@
 package com.practice.application.spring.service;
 
+import com.practice.application.spring.generic.GenericService;
+import com.practice.application.spring.model.Person;
 import com.practice.application.spring.repository.PersonRepository;
 import com.practice.application.spring.service.exception.ServiceException;
-import com.practice.application.spring.model.Person;
-import com.practice.application.spring.generic.GenericService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,7 +30,7 @@ public class PersonService implements GenericService<Person> {
 
     @Override
     public Person createOrUpdate(Person person) {
-        if(!isValidPerson(person)) {
+        if (!isValidPerson(person)) {
             throw new ServiceException("Some values are missing");
         }
         return repository.save(person);
