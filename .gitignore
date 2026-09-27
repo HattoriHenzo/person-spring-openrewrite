@@ -1,0 +1,54 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+pom.xml.bak
+release.properties
+dependency-reduced-pom.xml
+.flattened-pom.xml
+site/
+
+# IDE - IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+*.swo
+
+# IDE - Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Build
+.m2/
+build/
+out/
+
+# Runtime
+*.class
+*.jar
+*.war
+
+# Local environment
+.env
+.env.local
+*.properties.local
+
+# SonarQube
+.sonarqube/
+.sonar/
+.scannerwork/
