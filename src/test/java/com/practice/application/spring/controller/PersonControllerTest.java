@@ -1,6 +1,6 @@
 package com.practice.application.spring.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.practice.application.spring.generic.GenericService;
 import com.practice.application.spring.model.Person;
 import com.practice.application.spring.service.exception.ServiceException;
@@ -8,9 +8,9 @@ import com.practice.application.spring.utils.TestData;
 import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -26,7 +26,7 @@ class PersonControllerTest implements WithAssertions {
     protected ObjectMapper objectMapper;
     @Autowired
     private MockMvc mockMvc;
-    @MockBean
+    @MockitoBean
     private GenericService<Person> service;
 
     @Test

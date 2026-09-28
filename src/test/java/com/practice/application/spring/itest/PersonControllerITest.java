@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.webtestclient.autoconfigure.AutoConfigureWebTestClient;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -19,24 +20,26 @@ import static org.junit.jupiter.api.Assumptions.assumingThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
+@AutoConfigureWebTestClient
 class PersonControllerITest {
 
     private static final int PERSON_ID = 1;
-    private static String URI = "http://localhost:%s";
+    private static final String URI_TEMPLATE = "http://localhost:%s";
+    private String uri;
     @LocalServerPort
-    private String localServerPort;
+    private int localServerPort;
     @Autowired
     private WebTestClient webTestClient;
 
     @BeforeEach
     void setUp() {
-        URI = String.format(URI, localServerPort);
+        uri = String.format(URI_TEMPLATE, localServerPort);
     }
 
     @Test
     void integrationTest_For_FindingPersons() {
         webTestClient.get()
-                .uri(URI + "/persons")
+                .uri(uri + "/persons")
                 .exchange()
                 .expectStatus()
                 .isOk();
@@ -45,7 +48,7 @@ class PersonControllerITest {
     @Test
     void integrationTest_For_FindingPersonById() {
         webTestClient.get()
-                .uri(URI + "/persons/{id}", PERSON_ID)
+                .uri(uri + "/persons/{id}", PERSON_ID)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(Person.class)
@@ -65,7 +68,7 @@ class PersonControllerITest {
         var newPerson = createPerson();
 
         webTestClient.post()
-                .uri(URI + "/persons")
+                .uri(uri + "/persons")
                 .accept(MediaType.APPLICATION_JSON)
                 .bodyValue(newPerson)
                 .exchange()
@@ -77,7 +80,7 @@ class PersonControllerITest {
         var updatePerson = createPerson();
 
         webTestClient.put()
-                .uri(URI + "/persons")
+                .uri(uri + "/persons")
                 .accept(MediaType.APPLICATION_JSON)
                 .bodyValue(updatePerson)
                 .exchange()
@@ -87,7 +90,7 @@ class PersonControllerITest {
     @Test
     void integrationTest_For_DeletingPerson() {
         webTestClient.delete()
-                .uri(URI + "/persons/{ID}", PERSON_ID)
+                .uri(uri + "/persons/{id}", PERSON_ID)
                 .exchange()
                 .expectStatus().isOk();
     }
